@@ -1,7 +1,11 @@
+# This ERP is tricky ill come back to it, but the projects.json output is perfect, its just the error sorting.
+
 import os
 import json
 import openpyxl
 import re
+
+# Extracts the project, and serial numbers from the excel file
 
 def extract_project_numbers_from_excel(excel_file_path):
     try:
@@ -22,6 +26,8 @@ def extract_project_numbers_from_excel(excel_file_path):
         print(f"Error reading from Excel: {e}")
         return set(), set()
 
+# Searches the P and U base paths for the project folders
+
 def search_project_folders(base_paths, project_numbers, job_numbers):
     found_projects = {}
     errors = {'not_found': [], 'found_in_U_not_in_P': [], 'found_in_both': []}
@@ -34,22 +40,21 @@ def search_project_folders(base_paths, project_numbers, job_numbers):
                 matches = pattern.search(dir)
                 if matches:
                     project_key = matches.group()
-                    if any(project_key == num for num in project_numbers.union(job_numbers)):
-                        full_path = os.path.join(root, dir)
-                        project_detail = {
-                            "projectnumber": project_key,
-                            "projectfullpath": full_path,
-                            "projectpath": full_path.split("\\")
-                        }
-                        if 'U:' in base_path:
-                            projects_in_u.add(project_key)
-                            if project_key in found_projects:
-                                errors['found_in_both'].append(project_key)
-                            else:
-                                errors['found_in_U_not_in_P'].append(project_key)
+                    full_path = os.path.join(root, dir)
+                    if 'U:' in base_path:
+                        projects_in_u.add(project_key)
+                        if project_key not in found_projects:
+                            errors['found_in_U_not_in_P'].append(project_key)
                         else:
-                            found_projects[project_key] = project_detail
-                        print(f"Found project {project_key} in {base_path}: {full_path}")
+                            errors['found_in_both'].append(project_key)
+                    else:
+                        if project_key not in projects_in_u:
+                            found_projects[project_key] = {
+                                "projectnumber": project_key,
+                                "projectfullpath": full_path,
+                                "projectpath": full_path.split("\\")
+                            }
+                    print(f"Found project {dir} in {base_path}: {full_path}")
 
     for num in project_numbers.union(job_numbers):
         if num not in found_projects and num not in projects_in_u:
