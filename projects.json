@@ -1,7 +1,50 @@
 {
-    "ORTEC M2023194": "P:/Moonstone/Customer\\O\\ORTEC M2023194",
-    "SAMKEE M2023193": "P:/Moonstone/Customer\\S\\SAMKEE M2023193",
-    "M2024197 MS 50 MB 316": "P:/Moonstone/Customer\\S\\SURFACEPREP\\CRAIG JASINSKI-NH\\M2024197 MS 50 MB 316",
-    "M2023192 MS15 BDB": "P:/Moonstone/Customer\\U\\UNIQUE\\M2023192 MS15 BDB",
-    "VISION PICKLING M2023195": "P:/Moonstone/Customer\\V\\VISION PICKLING M2023195"
+    "M2023194": {
+        "projectnumber": "M2023194",
+        "projectfullpath": "P:/Moonstone/Customer\\O\\ORTEC M2023194",
+        "projectpath": [
+            "P:/Moonstone/Customer",
+            "O",
+            "ORTEC M2023194"
+        ]
+    },
+    "M2023193": {
+        "projectnumber": "M2023193",
+        "projectfullpath": "P:/Moonstone/Customer\\S\\SAMKEE M2023193",
+        "projectpath": [
+            "P:/Moonstone/Customer",
+            "S",
+            "SAMKEE M2023193"
+        ]
+    },
+    "M2024197": {
+        "projectnumber": "M2024197",
+        "projectfullpath": "P:/Moonstone/Customer\\S\\SURFACEPREP\\CRAIG JASINSKI-NH\\M2024197 MS 50 MB 316",
+        "projectpath": [
+            "P:/Moonstone/Customer",
+            "S",
+            "SURFACEPREP",
+            "CRAIG JASINSKI-NH",
+            "M2024197 MS 50 MB 316"
+        ]
+    },
+    "M2023192": {
+        "projectnumber": "M2023192",
+        "projectfullpath": "P:/Moonstone/Customer\\U\\UNIQUE\\M2023192 MS15 BDB",
+        "projectpath": [
+            "P:/Moonstone/Customer",
+            "U",
+            "UNIQUE",
+            "M2023192 MS15 BDB"
+        ]
+    },
+    "M2023195": {
+        "projectnumber": "M2023195",
+        "projectfullpath": "P:/Moonstone/Customer\\V\\VISION PICKLING M2023195",
+        "projectpath": [
+            "P:/Moonstone/Customer",
+            "V",
+            "VISION PICKLING M2023195"
+        ]
+    }
 }

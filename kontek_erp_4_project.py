@@ -27,22 +27,29 @@ def search_project_folders(base_paths, project_numbers, job_numbers):
     errors = {'not_found': [], 'found_in_U_not_in_P': [], 'found_in_both': []}
     projects_in_u = set()
 
-    pattern = re.compile(r"(M\d+)")
+    pattern = re.compile(r"M\d{7}")
     for base_path in base_paths:
         for root, dirs, files in os.walk(base_path):
             for dir in dirs:
-                matches = pattern.findall(dir)
-                if any(num in project_numbers or num in job_numbers for num in matches):
-                    full_path = os.path.join(root, dir)
-                    if 'U:' in base_path:
-                        projects_in_u.add(dir)
-                        if dir in found_projects:
-                            errors['found_in_both'].append(dir)
+                matches = pattern.search(dir)
+                if matches:
+                    project_key = matches.group()
+                    if any(project_key == num for num in project_numbers.union(job_numbers)):
+                        full_path = os.path.join(root, dir)
+                        project_detail = {
+                            "projectnumber": project_key,
+                            "projectfullpath": full_path,
+                            "projectpath": full_path.split("\\")
+                        }
+                        if 'U:' in base_path:
+                            projects_in_u.add(project_key)
+                            if project_key in found_projects:
+                                errors['found_in_both'].append(project_key)
+                            else:
+                                errors['found_in_U_not_in_P'].append(project_key)
                         else:
-                            errors['found_in_U_not_in_P'].append(dir)
-                    else:
-                        found_projects[dir] = full_path
-                    print(f"Found project {dir} in {base_path}: {full_path}")
+                            found_projects[project_key] = project_detail
+                        print(f"Found project {project_key} in {base_path}: {full_path}")
 
     for num in project_numbers.union(job_numbers):
         if num not in found_projects and num not in projects_in_u:
